@@ -1,4 +1,4 @@
-package com.fede.m295.m295_project_setup.util.exceptionHandlers;
+package com.perrif.m295_lb.util.exceptionHandlers;
 
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.core.Response;
