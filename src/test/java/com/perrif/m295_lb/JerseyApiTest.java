@@ -17,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class JerseyApiTest {
     private static final String SERVICE_URL = "http://localhost:8080/App/resources/car";
-    private static final String USERNAME = "admin";
-    private static final String PASSWORD = "1234";
+    private static String USERNAME = "admin";
+    private static String PASSWORD = "1234";
 
     private void addAuthorizationHeader(HttpUriRequest request) {
         String auth = USERNAME + ":" + PASSWORD;
@@ -153,45 +153,40 @@ public class JerseyApiTest {
 
     @Test
     @Order(9)
-    public void addCar_thenOk() throws IOException {
+    public void addCarAsAdmin_thenOk() throws IOException {
         HttpPost request = new HttpPost(SERVICE_URL);
-        addAuthorizationHeader(request);
         String json = "{\"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}";
         makePost(request, json, HttpStatus.SC_OK);
     }
 
     @Test
     @Order(10)
-    public void addCar_thenConflict() throws IOException {
+    public void addCarAsAdmin_thenConflict() throws IOException {
         HttpPost request = new HttpPost(SERVICE_URL);
-        addAuthorizationHeader(request);
         String json = "{\"id\":1,\"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}";
         makePost(request, json, HttpStatus.SC_CONFLICT);
     }
 
     @Test
     @Order(11)
-    public void addInvalidCar_thenBadRequest() throws IOException {
+    public void addInvalidCarAsAdmin_thenBadRequest() throws IOException {
         HttpPost request = new HttpPost(SERVICE_URL);
-        addAuthorizationHeader(request);
         String json = "{\"badKey\":999,\"badKey\":\"Toyota\",\"badKey\":20000.0}";
         makePost(request, json, HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test
     @Order(12)
-    public void addMultipleCars_thenOk() throws IOException {
+    public void addMultipleCarsAsAdmin_thenOk() throws IOException {
         HttpPost request = new HttpPost(SERVICE_URL + "/multiple");
-        addAuthorizationHeader(request);
         String json = "[{\"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}]";
         makePost(request, json, HttpStatus.SC_OK);
     }
 
     @Test
     @Order(13)
-    public void addMultipleOnlyDuplicateCars_thenNoContent() throws IOException {
+    public void addMultipleOnlyDuplicateCarsAsAdmin_thenNoContent() throws IOException {
         HttpPost request = new HttpPost(SERVICE_URL + "/multiple");
-        addAuthorizationHeader(request);
         String json = "[]";
         makePost(request, json, HttpStatus.SC_NO_CONTENT);
     }
@@ -271,25 +266,23 @@ public class JerseyApiTest {
 
     @Test
     @Order(20)
-    public void updateExistingCar_thenOk() throws IOException {
+    public void updateExistingCarAsAdmin_thenOk() throws IOException {
         HttpPut request = new HttpPut(SERVICE_URL);
-        addAuthorizationHeader(request);
         String json = "{\"id\":1,\"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":21500.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}";
         makePut(request, json, HttpStatus.SC_OK);
     }
 
     @Test
-    @Order(20)
-    public void updateNonExistingCar_thenNotFound() throws IOException {
+    @Order(21)
+    public void updateNonExistingCarAsAdmin_thenNotFound() throws IOException {
         HttpPut request = new HttpPut(SERVICE_URL);
-        addAuthorizationHeader(request);
         String json = "{\"id\":999999,\"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":21500.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}";
         makePut(request, json, HttpStatus.SC_NOT_FOUND);
     }
 
     @Test
-    @Order(21)
-    public void deleteExistingCar_thenOk() throws IOException {
+    @Order(22)
+    public void deleteExistingCarAsAdmin_thenOk() throws IOException {
         HttpUriRequest request = new HttpDelete(SERVICE_URL + "/1");
         addAuthorizationHeader(request);
         HttpResponse httpResponse = HttpClientBuilder
@@ -301,8 +294,8 @@ public class JerseyApiTest {
     }
 
     @Test
-    @Order(22)
-    public void deleteNotExistingCar_thenNotFound() throws IOException {
+    @Order(23)
+    public void deleteNotExistingCarAsAdmin_thenNotFound() throws IOException {
         HttpUriRequest request = new HttpDelete(SERVICE_URL + "/999999");
         addAuthorizationHeader(request);
         HttpResponse httpResponse = HttpClientBuilder
@@ -314,8 +307,8 @@ public class JerseyApiTest {
     }
 
     @Test
-    @Order(23)
-    public void deleteAllCars_thenOk() throws IOException {
+    @Order(24)
+    public void deleteAllCarsAsAdmin_thenOk() throws IOException {
         HttpUriRequest request = new HttpDelete(SERVICE_URL);
         addAuthorizationHeader(request);
         HttpResponse httpResponse = HttpClientBuilder
@@ -324,5 +317,68 @@ public class JerseyApiTest {
                 .execute(request);
 
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
+    }
+
+    @Test
+    @Order(25)
+    public void addCarAsTenant_thenOk() throws IOException {
+        USERNAME = "tenant";
+        HttpPost request = new HttpPost(SERVICE_URL);
+        String json = "{\"make\":\"Honda\",\"model\":\"Civic\",\"productionDate\":\"2021-01-01\",\"approved\":true,\"price\":22000.0,\"owner\":{\"ahvNr\":\"1234567890123457\"}}";
+        makePost(request, json, HttpStatus.SC_OK);
+    }
+
+    @Test
+    @Order(26)
+    public void updateCarAsTenant_thenOk() throws IOException {
+        USERNAME = "tenant";
+        HttpPut request = new HttpPut(SERVICE_URL);
+        String json = "{\"id\":3,\"make\":\"Honda\",\"model\":\"Civic\",\"productionDate\":\"2021-01-01\",\"approved\":true,\"price\":22500.0,\"owner\":{\"ahvNr\":\"1234567890123457\"}}";
+        makePut(request, json, HttpStatus.SC_OK);
+    }
+
+    @Test
+    @Order(27)
+    public void deleteCarAsTenant_thenUnauthorized() throws IOException {
+        USERNAME = "tenant";
+        HttpUriRequest request = new HttpDelete(SERVICE_URL + "/1");
+        HttpResponse httpResponse = HttpClientBuilder
+                .create()
+                .build()
+                .execute(request);
+
+        assertEquals(HttpStatus.SC_UNAUTHORIZED, httpResponse.getStatusLine().getStatusCode());
+    }
+
+    @Test
+    @Order(28)
+    public void addCarAsPublic_thenUnauthorized() throws IOException {
+        USERNAME = "";
+        PASSWORD = "";
+        HttpPost request = new HttpPost(SERVICE_URL);
+        String json = "{\"make\":\"Nissan\",\"model\":\"Altima\",\"productionDate\":\"2022-01-01\",\"approved\":true,\"price\":23000.0,\"owner\":{\"ahvNr\":\"1234567890123458\"}}";
+        makePost(request, json, HttpStatus.SC_UNAUTHORIZED);
+    }
+
+    @Test
+    @Order(29)
+    public void updateCarAsPublic_thenUnauthorized() throws IOException {
+        USERNAME = "";
+        PASSWORD = "";
+        HttpPut request = new HttpPut(SERVICE_URL);
+        String json = "{\"id\":1,\"make\":\"Nissan\",\"model\":\"Altima\",\"productionDate\":\"2022-01-01\",\"approved\":true,\"price\":23500.0,\"owner\":{\"ahvNr\":\"1234567890123458\"}}";
+        makePut(request, json, HttpStatus.SC_UNAUTHORIZED);
+    }
+
+    @Test
+    @Order(30)
+    public void deleteCarAsPublic_thenUnauthorized() throws IOException {
+        HttpUriRequest request = new HttpDelete(SERVICE_URL + "/1");
+        HttpResponse httpResponse = HttpClientBuilder
+                .create()
+                .build()
+                .execute(request);
+
+        assertEquals(HttpStatus.SC_UNAUTHORIZED, httpResponse.getStatusLine().getStatusCode());
     }
 }

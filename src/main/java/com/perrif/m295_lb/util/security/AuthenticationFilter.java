@@ -99,7 +99,7 @@ public class AuthenticationFilter implements ContainerRequestFilter
         if (userRole != null &&
                 (
                         (username.equals("admin") && password.equals("1234")) ||
-                        (username.equals("cleaner") && password.equals("1234"))
+                        (username.equals("tenant") && password.equals("1234"))
                 )
         )
         {
