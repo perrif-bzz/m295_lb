@@ -17,11 +17,11 @@ anhand verschiedener Attribute wie Baujahr (`make`) und Herstellungsdatum (`prod
 ### Screenshot der Testdurchführung
 ![Screenshot der Testdurchführung](./images/TestResults.png)
 
-*Bemerkung über Tests unter [Bemerkungen](#Bemerkungen)*
+*Sonstige Informationen über Verwendung und Tests unter [Sonstiges](#Sonstiges)*
 
 ## Validierungsregeln
-- Bau und Modell des Autos (`make` | String & `model` | String): Zwischen 2 und 45 Zeichen lang.
-- Herstellungsdatum des Autos (`productionDate` | LocalDate): Vergangenheit oder Gegenwart, nicht in Zukunft.
+- Bau und Modell des Autos (`make` | String & `model` | String): Muss zwischen 2 und 45 Zeichen lang sein.
+- Herstellungsdatum des Autos (`productionDate` | LocalDate): Muss Vergangenheit oder Gegenwart sein.
 - Preis des Autos (`price` | BigDecimal): Muss 0 oder Positiv sein.
 
 ## Berechtigungsmatrix
@@ -50,7 +50,7 @@ So zu lesen: "<Rolle> hat recht auf Aktionen: <Aktionen> auf Endpunkte: "
 | TENANT | tenant   | 1234     |
 
 ## Sonstiges
-Beim Testing müssen die Datenbanktabellen Leer sein, der Auto-Increment muss auch zurückgesetz werden.
+Beim Testing müssen die Datenbanktabellen Leer sein, der Auto-Increment muss auch zurückgesetzt werden.
 ```mysql
 DELETE FROM cars.car;
 DELETE FROM cars.owner;
