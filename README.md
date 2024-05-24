@@ -25,9 +25,6 @@ anhand verschiedener Attribute wie Baujahr (`make`) und Herstellungsdatum (`prod
 - Preis des Autos (`price` | BigDecimal): Muss 0 oder Positiv sein.
 
 ## Berechtigungsmatrix
-So zu lesen: "<Rolle> hat recht auf Aktionen: <Aktionen> auf Endpunkte: "
-
-## Berechtigungsmatrix
 | Endpoint                            | Rolle         | Zugriffstyp   | HTTP-Methode |
 |-------------------------------------|---------------|---------------|--------------|
 | `/car/ping`                         | Alle          | Abrufen       | GET          |
@@ -43,7 +40,7 @@ So zu lesen: "<Rolle> hat recht auf Aktionen: <Aktionen> auf Endpunkte: "
 | `/car/{id}`                         | ADMIN         | Löschen       | DELETE       |
 | `/car`                              | ADMIN         | Löschen       | DELETE       |
 
-# Basic Authorization
+### Basic Authorization
 | Rolle  | Username | Passwort |
 |--------|----------|----------|
 | ADMIN  | admin    | 1234     |
@@ -59,7 +56,7 @@ ALTER TABLE cars.owner AUTO_INCREMENT = 1;
 ```
 Grund dafür, ist, dass anstatt Mocking, alles hardcoded ist.
 
-# Beispiel-Daten
+### Beispiel-Daten
 Daten müssen als application/json im Body abgeschickt werden
 - Bei einem PUT müsste auch die ID des Autos mitgegeben werden.
 ```json
@@ -111,7 +108,7 @@ Mehrere neue Einträge JSON:
 ]
 ```
 
-## OpenAPI Dokumentation der Services (Resourcen)
+### OpenAPI Dokumentation der Services (Resourcen)
 ```yaml
 openapi: "3.0.0"
 info:
