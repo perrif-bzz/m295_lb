@@ -1,98 +1,42 @@
-# TodoController API
+# Name des Projektes
+Meine API Projekt
 
-## Overview
+## Beschreibung
+Dies ist ein Beispielprojekt für eine API, die verschiedene Endpunkte zur Verfügung stellt, um Daten zu verwalten und abzurufen. Die API ist mit einem robusten Validierungssystem und einer umfangreichen Dokumentation ausgestattet, um Entwicklern die Integration zu erleichtern.
 
-The `TodoController` API provides endpoints to manage a list of TODO items. The API supports operations such as creating, reading, updating, and deleting TODO items. The API is secured with role-based access control, where certain operations require admin privileges.
+### Endpunkte
+Endpunkte....
 
-## Endpoints
+## Visuals
+### Datenbankdiagramm
+![Datenbankdiagramm](./images/CarDB_ERD.png)
 
-### Health Check
+### Klassendiagramm
+![Klassendiagramm](./images/CarDB_Class_Diagram.png)
 
-#### `GET /todo/ping`
+### Screenshot der Testdurchführung
+![Screenshot der Testdurchführung](./images/***)
 
-- **Description**: Checks if the Todo controller is running.
-- **Response**:
-    - `200 OK` with message "Todo controller is running..."
+## Validierungsregeln
+- Alle Eingabefelder müssen ausgefüllt sein.
+- E-Mail-Adressen müssen ein gültiges Format haben.
+- Passwörter müssen mindestens 8 Zeichen lang sein und eine Kombination aus Buchstaben und Zahlen enthalten.
+- Benutzernamen dürfen keine Sonderzeichen enthalten.
 
-### Get All Todos
+## Berechtigungsmatrix
+| Rolle  | Aktion                 | Endpunkt |
+|--------|------------------------|----------|
+| Admin  | GET, POST, PUT, DELETE | /car     |
+| TENANT | GET, POST, PUT         | /car     |
+| ALLE   | GET                    | /car     |
 
-#### `GET /todo`
+## OpenAPI Dokumentation der Services (Resourcen)
+Die vollständige OpenAPI-Dokumentation ist unter folgendem Link verfügbar: [OpenAPI Dokumentation](./docs/openapi.yaml)
 
-- **Description**: Retrieves a list of all TODO items.
-- **Response**:
-    - `200 OK` with a list of TODO items.
-    - `204 No Content` if no TODO items are found.
+## Autor
+- Name: Perri Federico
+- E-Mail: perrif@bzz.ch
+- GitHub: [MaxMustermann](https://github.com/MaxMustermann)
 
-### Get Todo by ID
-
-#### `GET /todo/{id}`
-
-- **Description**: Retrieves a TODO item by its ID.
-- **Path Parameter**: `id` - ID of the TODO item.
-- **Response**:
-    - `200 OK` with the TODO item.
-    - `404 Not Found` if no TODO item with the specified ID is found.
-
-### Add Todo
-
-#### `POST /todo`
-
-- **Description**: Adds a new TODO item.
-- **Request Body**: JSON representation of the TODO item.
-- **Response**:
-    - `200 OK` with the created TODO item.
-    - `409 Conflict` if a TODO item with the same ID already exists.
-- **Security**: Requires `ADMIN` role.
-
-### Update Todo
-
-#### `PUT /todo`
-
-- **Description**: Updates an existing TODO item.
-- **Request Body**: JSON representation of the TODO item.
-- **Response**:
-    - `200 OK` with the updated TODO item.
-    - `404 Not Found` if the TODO item with the specified ID does not exist.
-- **Security**: Requires `ADMIN` role.
-
-### Delete Todo
-
-#### `DELETE /todo/{id}`
-
-- **Description**: Deletes a TODO item by its ID.
-- **Path Parameter**: `id` - ID of the TODO item.
-- **Response**:
-    - `200 OK` with a message indicating the TODO item has been deleted.
-    - `404 Not Found` if no TODO item with the specified ID is found.
-- **Security**: Requires `ADMIN` role.
-
-## Error Handling
-
-- **500 Internal Server Error**: Returned for any server-side errors with a message detailing the issue.
-
-## Example TODO JSON
-
-```json
-{
-    "id": 1,
-    "todoValue": "Sample TODO"
-}
-```
-
-## Dependencies
-
-- Spring Framework
-- Jakarta WS-RS
-- Hibernate/JPA
-- SLF4J (for logging)
-
-## Setup
-
-1. Ensure you have Java and Maven installed.
-2. Clone the repository.
-3. Run `mvn clean install` to build the project.
-4. Deploy the application to your favorite servlet container.
-
-## Contact
-
-For any questions or issues, please contact [Your Name] at [your.email@example.com].
+## Zusammenfassung
+Dieses Projekt demonstriert die Erstellung und Dokumentation einer API mit verschiedenen Endpunkten zur Datenverwaltung. Die API umfasst umfassende Validierungsregeln, eine klare Berechtigungsmatrix und eine vollständige OpenAPI-Dokumentation, um die Integration und Nutzung für Entwickler zu erleichtern.
