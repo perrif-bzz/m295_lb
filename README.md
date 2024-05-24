@@ -55,6 +55,10 @@ nach Autos anhand verschiedener Attribute wie Baujahr (`make`) und Herstellungsd
 
 
 ## Sonstiges
+Bevor man überhaupt beginnen kann, muss die Datenbank schon existieren.
+Man kann dann den Service starten und durch einen POST als ADMIN auf dem Endpunkt /database
+die Tabellen der zwei Entitäten generieren.
+
 Beim Testing müssen die Datenbanktabellen Leer sein, der Auto-Increment muss auch zurückgesetzt werden.
 ```mysql
 DELETE FROM cars.car;
@@ -428,6 +432,41 @@ paths:
           description: ""
           content:
             application/json:
+              schema:
+                type: "string"
+  /database/ping:
+    get:
+      operationId: "databaseControllerPing"
+      description: ""
+      parameters: []
+      responses:
+        200:
+          description: ""
+          content:
+            text/plain:
+              schema:
+                type: "string"
+  /database:
+    post:
+      operationId: "createTables"
+      description: ""
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "string"
+      responses:
+        200:
+          description: ""
+          content:
+            text/plain:
+              schema:
+                type: "string"
+        500:
+          description: ""
+          content:
+            text/plain:
               schema:
                 type: "string"
 components:

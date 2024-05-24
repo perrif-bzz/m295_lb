@@ -19,7 +19,7 @@ USE `cars` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cars`.`Owner` (
                                               `ID` INT NOT NULL AUTO_INCREMENT,
-                                              `AHV_Number` VARCHAR(45) NOT NULL,
+                                              `AHV_Number` VARCHAR(16) NOT NULL,
     PRIMARY KEY (`ID`),
     UNIQUE INDEX `AHV_Number_UNIQUE` (`AHV_Number` ASC) VISIBLE)
     ENGINE = InnoDB;

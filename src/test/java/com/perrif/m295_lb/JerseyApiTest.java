@@ -37,10 +37,7 @@ public class JerseyApiTest
     public void getPing_thenOk() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/ping");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
     }
@@ -50,10 +47,7 @@ public class JerseyApiTest
     public void getAllCars_thenNoContent() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL);
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_NO_CONTENT, httpResponse.getStatusLine().getStatusCode());
     }
@@ -63,10 +57,7 @@ public class JerseyApiTest
     public void getNotPresentCarById_thenNotFound() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/isPresent/999999");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_NOT_FOUND, httpResponse.getStatusLine().getStatusCode());
     }
@@ -76,10 +67,7 @@ public class JerseyApiTest
     public void getNotExistingCarById_thenNotFound() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/1");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_NOT_FOUND, httpResponse.getStatusLine().getStatusCode());
     }
@@ -89,10 +77,7 @@ public class JerseyApiTest
     public void getCarByProductionDate_thenBadRequest() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/productionDate/invalid-date");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_BAD_REQUEST, httpResponse.getStatusLine().getStatusCode());
     }
@@ -102,10 +87,7 @@ public class JerseyApiTest
     public void getCarByMake_thenNoContent() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/make/NonExistentMake");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_NO_CONTENT, httpResponse.getStatusLine().getStatusCode());
     }
@@ -115,10 +97,7 @@ public class JerseyApiTest
     public void getCarByInvalidId() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/invalid-id");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_NOT_FOUND, httpResponse.getStatusLine().getStatusCode());
     }
@@ -128,10 +107,7 @@ public class JerseyApiTest
     public void getCarByInvalidProductionDate_thenBadRequest() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/productionDate/invalid-date");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_BAD_REQUEST, httpResponse.getStatusLine().getStatusCode());
     }
@@ -141,10 +117,7 @@ public class JerseyApiTest
     public void getCarByProductionDate_thenNoContent() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/productionDate/1900-01-01");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_NO_CONTENT, httpResponse.getStatusLine().getStatusCode());
     }
@@ -154,20 +127,14 @@ public class JerseyApiTest
     public void getEmptyCarCount_thenNoContent() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/count");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_NO_CONTENT, httpResponse.getStatusLine().getStatusCode());
     }
 
     private void makeAssert(HttpUriRequest request, int status) throws IOException
     {
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(status, httpResponse.getStatusLine().getStatusCode());
     }
@@ -291,13 +258,7 @@ public class JerseyApiTest
     public void addMultipleInvalidCarsAsAdmin_thenBadRequest() throws IOException
     {
         HttpPost request = new HttpPost(SERVICE_URL + "/multiple");
-        String json = "[" +
-                "{\"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}," +
-                "{\"make\":\"\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}," +
-                "{\"make\":\"Toyota\",\"model\":\"\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}," +
-                "{\"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"invalid-date\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}," +
-                "{\"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":-20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}" +
-                "]";
+        String json = "[" + "{\"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}," + "{\"make\":\"\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}," + "{\"make\":\"Toyota\",\"model\":\"\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}," + "{\"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"invalid-date\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}," + "{\"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":-20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}" + "]";
         makePost(request, json, HttpStatus.SC_BAD_REQUEST);
     }
 
@@ -306,11 +267,7 @@ public class JerseyApiTest
     public void addMultipleCarsWithIdAsAdmin_thenOk() throws IOException
     {
         HttpPost request = new HttpPost(SERVICE_URL + "/multiple");
-        String json = "[" +
-                "{\"id\": 1, \"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}," +
-                "{\"id\": 2, \"make\":\"Honda\",\"model\":\"Civic\",\"productionDate\":\"2021-01-01\",\"approved\":true,\"price\":22000.0,\"owner\":{\"ahvNr\":\"1234567890123457\"}}," +
-                "{\"make\":\"Ford\",\"model\":\"Focus\",\"productionDate\":\"2019-01-01\",\"approved\":true,\"price\":18000.0,\"owner\":{\"ahvNr\":\"1234567890123458\"}}" +
-                "]";
+        String json = "[" + "{\"id\": 1, \"make\":\"Toyota\",\"model\":\"Corolla\",\"productionDate\":\"2020-01-01\",\"approved\":true,\"price\":20000.0,\"owner\":{\"ahvNr\":\"1234567890123456\"}}," + "{\"id\": 2, \"make\":\"Honda\",\"model\":\"Civic\",\"productionDate\":\"2021-01-01\",\"approved\":true,\"price\":22000.0,\"owner\":{\"ahvNr\":\"1234567890123457\"}}," + "{\"make\":\"Ford\",\"model\":\"Focus\",\"productionDate\":\"2019-01-01\",\"approved\":true,\"price\":18000.0,\"owner\":{\"ahvNr\":\"1234567890123458\"}}" + "]";
         makePost(request, json, HttpStatus.SC_OK);
     }
 
@@ -319,10 +276,7 @@ public class JerseyApiTest
     public void getAllCars_thenOk() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL);
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
     }
@@ -332,10 +286,7 @@ public class JerseyApiTest
     public void getCarById_thenOk() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/1");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
     }
@@ -345,10 +296,7 @@ public class JerseyApiTest
     public void getCarCount_thenOk() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/count");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
     }
@@ -358,10 +306,7 @@ public class JerseyApiTest
     public void getPresentCarById_thenOk() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/isPresent/1");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
     }
@@ -371,10 +316,7 @@ public class JerseyApiTest
     public void getCarByMake_thenOk() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/make/Toyota");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
     }
@@ -384,10 +326,7 @@ public class JerseyApiTest
     public void getCarByProductionDate_thenOk() throws IOException
     {
         HttpUriRequest request = new HttpGet(SERVICE_URL + "/productionDate/2020-01-01");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
     }
@@ -452,10 +391,7 @@ public class JerseyApiTest
     {
         HttpUriRequest request = new HttpDelete(SERVICE_URL + "/1");
         addAuthorizationHeader(request);
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
     }
@@ -466,10 +402,7 @@ public class JerseyApiTest
     {
         HttpUriRequest request = new HttpDelete(SERVICE_URL + "/999999");
         addAuthorizationHeader(request);
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_NOT_FOUND, httpResponse.getStatusLine().getStatusCode());
     }
@@ -480,10 +413,7 @@ public class JerseyApiTest
     {
         HttpUriRequest request = new HttpDelete(SERVICE_URL);
         addAuthorizationHeader(request);
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
     }
@@ -514,10 +444,7 @@ public class JerseyApiTest
     {
         USERNAME = "tenant";
         HttpUriRequest request = new HttpDelete(SERVICE_URL + "/1");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_UNAUTHORIZED, httpResponse.getStatusLine().getStatusCode());
     }
@@ -549,10 +476,7 @@ public class JerseyApiTest
     public void deleteCarAsPublic_thenUnauthorized() throws IOException
     {
         HttpUriRequest request = new HttpDelete(SERVICE_URL + "/1");
-        HttpResponse httpResponse = HttpClientBuilder
-                .create()
-                .build()
-                .execute(request);
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         assertEquals(HttpStatus.SC_UNAUTHORIZED, httpResponse.getStatusLine().getStatusCode());
     }

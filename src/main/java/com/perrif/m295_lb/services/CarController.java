@@ -85,9 +85,7 @@ public class CarController
         if (cars.isEmpty())
         {
             logger.info("No cars are in the database.");
-            return Response.status(Response.Status.NO_CONTENT)
-                    .entity("No cars are in the database.")
-                    .build();
+            return Response.status(Response.Status.NO_CONTENT).entity("No cars are in the database.").build();
         }
 
         logger.info("Returning all cars...");
@@ -164,9 +162,7 @@ public class CarController
         if (cars.isEmpty())
         {
             logger.info("No " + make + "s are in the database.");
-            return Response.status(Response.Status.NO_CONTENT)
-                    .entity("No " + make + "s are in the database.")
-                    .build();
+            return Response.status(Response.Status.NO_CONTENT).entity("No " + make + "s are in the database.").build();
         }
 
         logger.info("Returning all " + make + "s ...");
@@ -200,9 +196,7 @@ public class CarController
         if (cars.isEmpty())
         {
             logger.info("No cars produced on " + dateString + " are in the database.");
-            return Response.status(Response.Status.NO_CONTENT)
-                    .entity("No cars produced on " + dateString + " are in the database.")
-                    .build();
+            return Response.status(Response.Status.NO_CONTENT).entity("No cars produced on " + dateString + " are in the database.").build();
         }
 
         logger.info("Returning all cars...");

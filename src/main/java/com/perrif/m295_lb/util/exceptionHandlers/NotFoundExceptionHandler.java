@@ -13,7 +13,8 @@ public class NotFoundExceptionHandler implements ExceptionMapper<NotFoundExcepti
     protected final Logger logger = LogManager.getLogger(NotFoundExceptionHandler.class);
 
     @Override
-    public Response toResponse(NotFoundException ex) {
+    public Response toResponse(NotFoundException ex)
+    {
         logger.warn(ex.getMessage());
         return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
     }

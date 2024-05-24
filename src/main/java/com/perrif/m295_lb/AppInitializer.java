@@ -12,9 +12,9 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 public class AppInitializer implements WebApplicationInitializer
 {
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        AnnotationConfigWebApplicationContext context
-                = new AnnotationConfigWebApplicationContext();
+    public void onStartup(ServletContext servletContext) throws ServletException
+    {
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 
         context.register(JpaConfig.class);
         context.register(RestConfig.class);

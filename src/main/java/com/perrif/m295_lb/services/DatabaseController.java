@@ -21,32 +21,35 @@ import java.sql.SQLException;
 public class DatabaseController
 {
     private final Logger logger = LogManager.getLogger(DatabaseController.class);
+    private final DataSource dataSource;
+
+    @Autowired
+    public DatabaseController(JdbcTemplate jdbcTemplate)
+    {
+        this.dataSource = jdbcTemplate.getDataSource();
+    }
 
     @GET
     @Path("/ping")
     @Produces(MediaType.TEXT_PLAIN)
     @PermitAll
-    public Response ping()
+    public Response databaseControllerPing()
     {
         return Response.status(Response.Status.OK).entity("Database controller is running...").build();
-    }
-
-    private final DataSource dataSource;
-
-    @Autowired
-    public DatabaseController(JdbcTemplate jdbcTemplate) {
-        this.dataSource = jdbcTemplate.getDataSource();
     }
 
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed({"ADMIN"})
-    public Response createTables() {
-        try {
+    public Response createTables()
+    {
+        try
+        {
             ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("carDb.sql"));
             logger.info("Creating db tables...");
             return Response.status(Response.Status.OK).entity("Tables created successfully!").build();
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             logger.error("Failed to create db tables: " + e.getMessage());
             throw new InternalServerErrorException(e.getMessage());
         }

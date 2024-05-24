@@ -2,7 +2,10 @@ package com.perrif.m295_lb;
 
 import com.perrif.m295_lb.services.CarController;
 import com.perrif.m295_lb.services.DatabaseController;
-import com.perrif.m295_lb.util.exceptionHandlers.*;
+import com.perrif.m295_lb.util.exceptionHandlers.BadRequestExceptionHandler;
+import com.perrif.m295_lb.util.exceptionHandlers.ConstraintViolationExceptionHandler;
+import com.perrif.m295_lb.util.exceptionHandlers.InternalServerErrorExceptionHandler;
+import com.perrif.m295_lb.util.exceptionHandlers.NotFoundExceptionHandler;
 import com.perrif.m295_lb.util.security.AuthenticationFilter;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
@@ -14,7 +17,8 @@ import java.util.Set;
 @ApplicationPath("/resources")
 public class RestConfig extends Application
 {
-    public Set<Class<?>> getClasses() {
+    public Set<Class<?>> getClasses()
+    {
         return new HashSet<>(
                 Arrays.asList(
                         AuthenticationFilter.class,

@@ -96,12 +96,7 @@ public class AuthenticationFilter implements ContainerRequestFilter
         roles.put("tenant", "TENANT");
 
         String userRole = roles.get(username);
-        if (userRole != null &&
-                (
-                        (username.equals("admin") && password.equals("1234")) ||
-                        (username.equals("tenant") && password.equals("1234"))
-                )
-        )
+        if (userRole != null && ((username.equals("admin") && password.equals("1234")) || (username.equals("tenant") && password.equals("1234"))))
         {
             return allowedRoles.contains(userRole);
         }

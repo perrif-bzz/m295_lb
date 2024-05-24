@@ -11,7 +11,8 @@ public class BadRequestExceptionHandler implements ExceptionMapper<BadRequestExc
     protected final Logger logger = LogManager.getLogger(BadRequestExceptionHandler.class);
 
     @Override
-    public Response toResponse(BadRequestException ex) {
+    public Response toResponse(BadRequestException ex)
+    {
         logger.warn(ex.getMessage());
         return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
     }

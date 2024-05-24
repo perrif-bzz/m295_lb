@@ -1,7 +1,6 @@
 package com.perrif.m295_lb.util.exceptionHandlers;
 
 import jakarta.validation.ConstraintViolationException;
-import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
@@ -14,7 +13,8 @@ public class ConstraintViolationExceptionHandler implements ExceptionMapper<Cons
     protected final Logger logger = LogManager.getLogger(ConstraintViolationExceptionHandler.class);
 
     @Override
-    public Response toResponse(ConstraintViolationException ex) {
+    public Response toResponse(ConstraintViolationException ex)
+    {
         logger.warn(ex.getMessage());
         return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
     }
