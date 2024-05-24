@@ -1,6 +1,7 @@
 package com.perrif.m295_lb;
 
-import com.perrif.m295_lb.services.TodoController;
+import com.perrif.m295_lb.services.CarController;
+import com.perrif.m295_lb.services.DatabaseController;
 import com.perrif.m295_lb.util.exceptionHandlers.*;
 import com.perrif.m295_lb.util.security.AuthenticationFilter;
 import jakarta.ws.rs.ApplicationPath;
@@ -17,7 +18,8 @@ public class RestConfig extends Application
         return new HashSet<>(
                 Arrays.asList(
                         AuthenticationFilter.class,
-                        TodoController.class,
+                        CarController.class,
+                        DatabaseController.class,
                         NotFoundExceptionHandler.class,
                         InternalServerErrorExceptionHandler.class,
                         ConstraintViolationExceptionHandler.class,

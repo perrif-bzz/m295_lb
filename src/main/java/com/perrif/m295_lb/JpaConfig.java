@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -36,7 +37,7 @@ public class JpaConfig
     public DataSource dataSource() {
         DataSourceBuilder<?> dataSource = DataSourceBuilder.create();
         dataSource.driverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.url("jdbc:mysql://localhost:3306/modules");
+        dataSource.url("jdbc:mysql://localhost:3306/cars");
         dataSource.username("root");
         dataSource.password("");
         return dataSource.build();
@@ -54,9 +55,14 @@ public class JpaConfig
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(dataSource());
+    }
+
     private Properties hibernateProperties() {
         final Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "none" /*Used to be "update"*/ );
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         hibernateProperties.setProperty("hibernate.show_sql", "true");
         return hibernateProperties;
