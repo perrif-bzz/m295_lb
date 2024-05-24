@@ -7,10 +7,13 @@ Das Car Registration API Projekt bietet eine umfassende Lösung zur Verwaltung v
 Die Hauptkomponenten der API umfassen:
 
 CarController: Verwaltet die Endpunkte für Autodaten.
+
 Car: Repräsentiert die Entität eines Autos.
+
 Owner: Repräsentiert die Entität eines Autobesitzers.
 
 Ein Besitzer wird durch seine AHV-Nummer identifiziert, dieser kann mehrere Autos besitzen.
+
 Ein Auto wird durch eine Auto-Generierte ID identifiziert, ein Auto kann nur einen Besitzer haben.
 
 ## Visuals
