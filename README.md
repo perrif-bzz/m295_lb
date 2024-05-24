@@ -1,28 +1,34 @@
 # Name des Projektes
 Car Registration (MBudget Strassenverkehrsamt)
 
+
 ## Beschreibung
-**Car Registration** ist eine RESTful API Applikation für die Verwaltung einer Sammlung von Fahrzeugen dessen Besitzern.
+**Car Registration** ist eine RESTful API Applikation für die Verwaltung einer Sammlung von Autos und dessen Besitzern.
 Sie bietet Endpunkte für das **Erstellen**, **Aktualisieren**, **Abrufen** und **Löschen** von **Autos** sowie für die **Suche**
-nach Autos anhand von **verschiedenen Attributen**.
-anhand verschiedener Attribute wie Baujahr (`make`) und Herstellungsdatum (`productionDate`).
+nach Autos anhand verschiedener Attribute wie Baujahr (`make`) und Herstellungsdatum (`productionDate`).
+
 
 ## Visuals
 ### Datenbankdiagramm
 ![Datenbankdiagramm](./images/CarDB_ERD.png)
 
+
 ### Klassendiagramm
 ![Klassendiagramm](./images/CarDB_Class_Diagram.png)
+
 
 ### Screenshot der Testdurchführung
 ![Screenshot der Testdurchführung](./images/TestResults.png)
 
+
 *Sonstige Informationen über Verwendung und Tests unter [Sonstiges](#Sonstiges)*
+
 
 ## Validierungsregeln
 - Bau und Modell des Autos (`make` | String & `model` | String): Muss zwischen 2 und 45 Zeichen lang sein.
 - Herstellungsdatum des Autos (`productionDate` | LocalDate): Muss Vergangenheit oder Gegenwart sein.
 - Preis des Autos (`price` | BigDecimal): Muss 0 oder Positiv sein.
+
 
 ## Berechtigungsmatrix
 | Endpoint                            | Rolle         | Zugriffstyp   | HTTP-Methode |
@@ -40,11 +46,13 @@ anhand verschiedener Attribute wie Baujahr (`make`) und Herstellungsdatum (`prod
 | `/car/{id}`                         | ADMIN         | Löschen       | DELETE       |
 | `/car`                              | ADMIN         | Löschen       | DELETE       |
 
+
 ### Basic Authorization
 | Rolle  | Username | Passwort |
 |--------|----------|----------|
 | ADMIN  | admin    | 1234     |
 | TENANT | tenant   | 1234     |
+
 
 ## Sonstiges
 Beim Testing müssen die Datenbanktabellen Leer sein, der Auto-Increment muss auch zurückgesetzt werden.
@@ -55,6 +63,7 @@ ALTER TABLE cars.car AUTO_INCREMENT = 1;
 ALTER TABLE cars.owner AUTO_INCREMENT = 1;
 ```
 Grund dafür, ist, dass anstatt Mocking, alles hardcoded ist.
+
 
 ### Beispiel-Daten
 Daten müssen als application/json im Body abgeschickt werden
@@ -107,6 +116,7 @@ Mehrere neue Einträge JSON:
   }
 ]
 ```
+
 
 ### OpenAPI Dokumentation der Services (Resourcen)
 ```yaml
@@ -461,10 +471,12 @@ components:
           type: "string"
 ```
 
+
 ## Autor
 - Name: Perri Federico
 - E-Mail: perrif@bzz.ch
 - GitHub: [Perri Federico](https://github.com/perrif-bzz)
+
 
 ## Zusammenfassung
 Es wurde eine API erstellt, die getestete Endpunkte zur Verfügung stellt,
