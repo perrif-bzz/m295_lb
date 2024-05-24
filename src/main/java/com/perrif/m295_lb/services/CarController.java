@@ -174,10 +174,10 @@ public class CarController
     }
 
     @GET
-    @Path("productionDate/{releaseDate}")
+    @Path("productionDate/{productionDate}")
     @Produces(MediaType.APPLICATION_JSON)
     @PermitAll
-    public Response getByProductionDate(@PathParam("releaseDate") String dateString)
+    public Response getByProductionDate(@PathParam("productionDate") String dateString)
     {
         LocalDate releaseDate;
         try
@@ -236,9 +236,8 @@ public class CarController
 
         try
         {
-            logger.info("Inserting / updating car with id " + car.getId() + ".");
-            return Response.status(Response.Status.OK)
-                    .entity(carRepository.save(car)).build();
+            logger.info("Adding / updating car with id " + car.getId() + ".");
+            return Response.status(Response.Status.OK).entity(carRepository.save(car)).build();
         } catch (Exception e)
         {
             throw new InternalServerErrorException(e.getMessage());
@@ -248,7 +247,7 @@ public class CarController
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"ADMIN", "TENANT"})
-    public Response insert(@Valid Car car)
+    public Response add(@Valid Car car)
     {
         if (car.getId() != null)
         {
@@ -292,7 +291,7 @@ public class CarController
             {
                 carRepository.saveAll(uniqueCars);
                 logger.info("Saving all non-duplicate cars.");
-                return Response.status(Response.Status.OK).entity("All non-duplicate cars have been saved.").build();
+                return Response.status(Response.Status.OK).entity(uniqueCars).build();
             }
             logger.warn("No non-duplicate cars to save.");
             return Response.status(Response.Status.NO_CONTENT).entity("No non-duplicate cars to save.").build();
@@ -343,14 +342,13 @@ public class CarController
     }
 
     @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed({"ADMIN"})
     public Response deleteAll()
     {
         try
         {
             carRepository.deleteAll();
-
             logger.info("Deleting all cars.");
             return Response.status(Response.Status.OK).entity("All cars have been deleted.").build();
         } catch (Exception e)
